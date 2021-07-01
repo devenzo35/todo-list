@@ -5,27 +5,27 @@ especificaciónes
 
 1. Deberá tener una página de Login
 
-2. Debera tener una página de Home, donde mostraras un componente de layout y un componente de lista dentro del layout
+2. Debera manejar autenticación para entrar a la página de home utilizando HOC para verificar si el usuario esta autenticado.
 
-3. Considera que si más adelante quieres agregar otra pagina el layout debera servir para montar cualquier contenido dentro en otra página
+3. En el componente de TODO podras ejecutar CRUD
 
-4. El layout debera tener un navbar con un boton de logout y el nombre el usuario loggeado
+4. Deberas mostrar un mensaje de bienvenida (“Bienvenido {username}”) utilizando Context para compartir la variable desde la app
 
-5. Debera manejar autenticación para entrar a la página de home utilizando HOC para verificar si el usuario esta autenticado.
+5. Deberas usar para todas las llamadas a APIs useEffect.
 
-6. Deberas utilizar componentes para Login, Layout y Todo
+**Deberas utilizar componentes para Login, Layout y Todo**
 
-7. En el componente de TODO podras ejecutar CRUD
+**Utiliza el menor número de librerias externas, para llamadas a la api utiliza axios**
 
-8. En el componente de TODO deberas implementar un custom hook para las llamadas a api de CRUD (pensando en reutilizar en futuras secciones de la app). Dentro del custom hook usaras useEffect.
+**El layout debera tener un navbar con un boton de logout y el nombre el usuario loggeado**
 
-9. Deberas mostrar un mensaje de bienvenida (“Bienvenido {username}”) utilizando Context para compartir la variable desde la app
+**En el componente de TODO deberas implementar un custom hook para las llamadas a api de CRUD (pensando en reutilizar en futuras secciones de la app). Dentro del custom hook usaras useEffect.**
 
-10. Deberas crear un componente para tus botones utilizando “render prop”
+**Debera tener una página de Home, donde mostraras un componente de layout y un componente de lista dentro del layout** ✔
 
-11. Deberas usar para todas las llamadas a APIs useEffect.
+**Considera que si más adelante quieres agregar otra pagina el layout debera servir para montar cualquier contenido dentro en otra página** ✔
 
-12. Utiliza el menor número de librerias externas, para llamadas a la api utiliza axios
+**Deberas crear un componente para tus botones utilizando “render prop”** ✔
 
 Para la api te recomendamos utilizar:
 • Fake.REST

@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "server": "json-server --watch db.json",
+    "server": "json-server --watch db.json --port 3001",
     "lint": "next lint"
   },
   "dependencies": {
@@ -17,7 +17,10 @@
     "react-dom": "17.0.2"
   },
   "devDependencies": {
+    "autoprefixer": "^10.2.6",
     "eslint": "7.29.0",
-    "eslint-config-next": "11.0.1"
+    "eslint-config-next": "11.0.1",
+    "postcss": "^8.3.5",
+    "tailwindcss": "^2.2.4"
   }
 }
