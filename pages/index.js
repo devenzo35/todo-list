@@ -1,4 +1,4 @@
-import authenticatedRoute from "../components/auth/AuthenticatedRoute";
+import authenticatedRoute from "../components/auth/authenticatedRoute";
 import Layout from "../components/Layout";
 import Todo from "../components/Todo";
 
@@ -12,4 +12,4 @@ function Home() {
   );
 }
 
-export default authenticatedRoute(Home, { pathAfterFailure: "/login" });
+export default authenticatedRoute(Home, { pathAfterFailure: "/auth/login" });

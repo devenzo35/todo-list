@@ -1,5 +1,6 @@
 import { useCrud } from "../hooks/useCrud";
 import Button from "../components/Button";
+import Task from "./Task";
 
 const Todo = () => {
   // TODO: useEffect
@@ -8,17 +9,18 @@ const Todo = () => {
   if (loading) return <h1>loading...</h1>;
 
   return (
-    <div className="bg-gray-700 rounded-lg w-3/6 h-80 m-auto p-3">
-      <ul className="flex flex-col justify-around items-center h-full">
+    <div className="border rounded-lg w-3/6 h-max m-auto p-3">
+      <input
+        className="border-b w-full p-1 mb-4"
+        type="text"
+        name="add task"
+        placeholder="Add a task"
+      ></input>
+      <ul className="flex flex-col justify-around gap-2 items-center h-full">
         {data.map(({ id, task }) => {
-          return (
-            <li className="bg-white w-full p-2 rounded-sm" key={id}>
-              {task}
-            </li>
-          );
+          return <Task key={id} task={task} />;
         })}
       </ul>
-      <Button render={() => <button>Create task</button>} />
     </div>
   );
 };

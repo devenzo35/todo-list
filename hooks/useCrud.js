@@ -12,7 +12,8 @@ export const useCrud = (method, url) => {
 
   useEffect(() => {
     return () => {
-      isDismount.current = false;
+      //turn to false
+      isDismount.current = true;
     };
   }, []);
 

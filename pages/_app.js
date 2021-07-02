@@ -1,18 +1,25 @@
 import "../styles/globals.css";
 import "tailwindcss/tailwind.css";
-import { createContext } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const userContext = createContext({
-  isLoggedIn: false,
+  isLoggedIn: undefined,
 });
 
 function MyApp({ Component, pageProps }) {
+  const [user, setUser] = useState({ isLoggedIn: undefined });
+
+  useEffect(() => {
+    const storageUser = JSON.parse(localStorage.getItem("user")) || {
+      isLoggedIn: null,
+    };
+    setUser(storageUser);
+  }, []);
+
+  console.log(user);
+
   return (
-    <userContext.Provider
-      value={{
-        isLoggedIn: true,
-      }}
-    >
+    <userContext.Provider value={{ user, setUser }}>
       <Component {...pageProps} />
     </userContext.Provider>
   );

@@ -2,19 +2,19 @@ import React, { useContext, useEffect, useState } from "react";
 import { userContext } from "../../pages/_app";
 import Router from "next/router";
 
-const authenticatedRoute = (Component = null, options = {}) => {
-  const AuthenticatedRoute = () => {
+const publicRoute = (Component = null, options = {}) => {
+  const PublicRoute = () => {
     const { user } = useContext(userContext);
     const [state, setState] = useState({
       loading: true,
     });
 
     useEffect(() => {
-      if (user.isLoggedIn === null) {
-        return Router.push(options.pathAfterFailure || "/auth/login");
+      if (user.isLoggedIn) {
+        return Router.push(options.pathAfterFailure || "/");
       }
 
-      if (user.isLoggedIn) {
+      if (user.isLoggedIn === null) {
         setState({ loading: false });
       }
     }, [user]);
@@ -26,7 +26,7 @@ const authenticatedRoute = (Component = null, options = {}) => {
     return <Component />;
   };
 
-  return AuthenticatedRoute;
+  return PublicRoute;
 };
 
-export default authenticatedRoute;
+export default publicRoute;
