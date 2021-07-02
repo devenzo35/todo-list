@@ -5,7 +5,7 @@ especificaciónes
 
 1. Deberá tener una página de Login
 
-2. Debera manejar autenticación para entrar a la página de home utilizando HOC para verificar si el usuario esta autenticado.
+**Debera manejar autenticación para entrar a la página de home utilizando HOC para verificar si el usuario esta autenticado.**
 
 3. En el componente de TODO podras ejecutar CRUD
 
