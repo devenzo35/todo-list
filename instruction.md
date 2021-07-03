@@ -3,15 +3,15 @@ Practica React:
 Crear una aplicación en react para gestionar un TODO list siguiendo estas
 especificaciónes
 
-1. Deberá tener una página de Login
+**Deberá tener una página de Login**
 
 **Debera manejar autenticación para entrar a la página de home utilizando HOC para verificar si el usuario esta autenticado.**
 
-3. En el componente de TODO podras ejecutar CRUD
+**En el componente de TODO podras ejecutar CRUD**
 
 4. Deberas mostrar un mensaje de bienvenida (“Bienvenido {username}”) utilizando Context para compartir la variable desde la app
 
-5. Deberas usar para todas las llamadas a APIs useEffect.
+**Deberas usar para todas las llamadas a APIs useEffect.**
 
 **Deberas utilizar componentes para Login, Layout y Todo**
 

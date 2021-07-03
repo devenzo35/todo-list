@@ -2,15 +2,11 @@ import { useForm } from "react-hook-form";
 import { useCrud } from "../hooks/useCrud";
 import Task from "./Task";
 import { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 
 const Todo = () => {
   const { fetchData, postData } = useCrud("http://localhost:3001/tasks");
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
+  const { register, handleSubmit } = useForm();
   const [tasks, setTasks] = useState([]);
 
   const { loading, data } = fetchData();
@@ -23,14 +19,32 @@ const Todo = () => {
     setTasks(data);
   }, [data]);
 
-  const onSubmit = (data) => {
-    postData("post", data);
-    reset();
+  const addTask = (data) => {
+    if (!data.task.length) return;
+    const newTask = { ...data, id: uuidv4() };
+    postData("post", newTask);
+    setTasks((prev) => [...prev, newTask]);
   };
+
+  const handleDeleteTask = (e, id) => {
+    e.stopPropagation();
+    postData("delete", {}, "/" + id);
+    setTasks((prev) => prev.filter((t) => t.id !== id));
+  };
+
+  const handleUpdateSubmit = (data, id) => {
+    if (!data.task.length) return;
+    setTasks((prev) =>
+      prev.map((t) => (t.id === id ? { ...t, task: data.task } : t))
+    );
+    postData("put", data, "/" + id);
+  };
+
+  console.log(tasks);
 
   return (
     <div className="bg-white border rounded-lg w-3/6 h-min mx-auto p-3">
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(addTask)}>
         <input
           className="border-b w-full p-1 mb-4"
           type="text"
@@ -49,7 +63,8 @@ const Todo = () => {
             return (
               <Task
                 register={register}
-                handleSubmit={handleSubmit}
+                handleDeleteTask={handleDeleteTask}
+                handleUpdateSubmit={handleUpdateSubmit}
                 postData={postData}
                 key={id}
                 task={task}
