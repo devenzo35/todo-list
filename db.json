@@ -19,24 +19,13 @@
   ],
   "tasks": [
     {
-      "id": "1",
-      "task": "clean my room"
+      "task": "hola",
+      "done": false,
+      "id": 1
     },
     {
-      "id": "2",
-      "task": "wash my car"
-    },
-    {
-      "id": "3",
-      "task": "Hiking"
-    },
-    {
-      "id": "4",
-      "task": "Code"
-    },
-    {
-      "task": "hello",
-      "id": "h9ZS20a"
+      "task": "ya actualize :D",
+      "id": 2
     }
   ]
 }

@@ -1,19 +1,30 @@
 import { useForm } from "react-hook-form";
 import { useCrud } from "../hooks/useCrud";
 import Task from "./Task";
+import { useState, useEffect } from "react";
 
 const Todo = () => {
-  // TODO: useEffect
-  const { data, loading } = useCrud("get", "http://localhost:3001/tasks");
+  const { fetchData, postData } = useCrud("http://localhost:3001/tasks");
   const {
     register,
     handleSubmit,
     formState: { errors },
     reset,
   } = useForm();
+  const [tasks, setTasks] = useState([]);
+
+  const { loading, data } = fetchData();
+
+  useEffect(() => {
+    if (loading) {
+      return;
+    }
+
+    setTasks(data);
+  }, [data]);
 
   const onSubmit = (data) => {
-    console.log(data);
+    postData("post", data);
     reset();
   };
 
@@ -25,7 +36,7 @@ const Todo = () => {
           type="text"
           name="add task"
           placeholder="Add a task"
-          {...register("addTask", {
+          {...register("task", {
             required: true,
           })}
         ></input>
@@ -33,10 +44,21 @@ const Todo = () => {
       <ul className="flex flex-col justify-around gap-2 items-center h-full">
         {loading ? (
           <h1>loading...</h1>
-        ) : (
-          data.map(({ id, task }) => {
-            return <Task key={id} task={task} />;
+        ) : tasks.length ? (
+          tasks.map(({ id, task }) => {
+            return (
+              <Task
+                register={register}
+                handleSubmit={handleSubmit}
+                postData={postData}
+                key={id}
+                task={task}
+                id={id}
+              />
+            );
           })
+        ) : (
+          <p>There is no tasks yet :(</p>
         )}
       </ul>
     </div>
