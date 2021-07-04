@@ -15,21 +15,27 @@ const Todo = () => {
     if (loading) {
       return;
     }
-
     setTasks(data);
   }, [data]);
 
   const addTask = (data) => {
     if (!data.task.length) return;
-    const newTask = { ...data, id: uuidv4() };
+    const newTask = { ...data, id: uuidv4(), done: false };
     postData("post", newTask);
     setTasks((prev) => [...prev, newTask]);
   };
 
-  const handleDeleteTask = (e, id) => {
-    e.stopPropagation();
-    postData("delete", {}, "/" + id);
-    setTasks((prev) => prev.filter((t) => t.id !== id));
+  const handleDoneTask = (id) => {
+    setTasks((prev) =>
+      prev.map((t) => {
+        if (t.id === id) {
+          postData("put", { ...t, done: !t.done }, "/" + id);
+          return { ...t, done: !t.done };
+        } else {
+          return t;
+        }
+      })
+    );
   };
 
   const handleUpdateSubmit = (data, id) => {
@@ -38,6 +44,12 @@ const Todo = () => {
       prev.map((t) => (t.id === id ? { ...t, task: data.task } : t))
     );
     postData("put", data, "/" + id);
+  };
+
+  const handleDeleteTask = (e, id) => {
+    e.stopPropagation();
+    postData("delete", {}, "/" + id);
+    setTasks((prev) => prev.filter((t) => t.id !== id));
   };
 
   console.log(tasks);
@@ -59,16 +71,18 @@ const Todo = () => {
         {loading ? (
           <h1>loading...</h1>
         ) : tasks.length ? (
-          tasks.map(({ id, task }) => {
+          tasks.map(({ id, task, done }) => {
             return (
               <Task
                 register={register}
-                handleDeleteTask={handleDeleteTask}
+                handleDoneTask={handleDoneTask}
                 handleUpdateSubmit={handleUpdateSubmit}
+                handleDeleteTask={handleDeleteTask}
                 postData={postData}
                 key={id}
                 task={task}
                 id={id}
+                done={done}
               />
             );
           })

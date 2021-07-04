@@ -4,8 +4,14 @@ import { ImCancelCircle } from "react-icons/im";
 import { GoPencil } from "react-icons/go";
 import { useForm } from "react-hook-form";
 
-const Task = ({ task, id, postData, handleDeleteTask, handleUpdateSubmit }) => {
-  const [done, setDone] = useState(false);
+const Task = ({
+  task,
+  id,
+  done,
+  handleDoneTask,
+  handleDeleteTask,
+  handleUpdateSubmit,
+}) => {
   const [modal, setModal] = useState(false);
 
   /* ---------------- */
@@ -13,9 +19,6 @@ const Task = ({ task, id, postData, handleDeleteTask, handleUpdateSubmit }) => {
   const { register, handleSubmit } = useForm();
 
   /* ---------------- */
-  const handleDoneTask = () => {
-    setDone(!done);
-  };
 
   const handleModal = (e) => {
     e.stopPropagation();
@@ -25,7 +28,7 @@ const Task = ({ task, id, postData, handleDeleteTask, handleUpdateSubmit }) => {
   return (
     <>
       <li
-        onClick={handleDoneTask}
+        onClick={() => handleDoneTask(id)}
         className={`border w-full flex justify-between items-center p-2 rounded-sm group cursor-pointer select-none ${
           done && "line-through"
         }`}
