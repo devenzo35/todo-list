@@ -13,12 +13,12 @@ function login() {
     reset,
   } = useForm();
 
-  const onSubmit = ({ email, password }) => {
-    localStorage.setItem(
-      "user",
-      JSON.stringify({ email, password, isLoggedIn: true })
-    );
-    setUser({ email, password, isLoggedIn: true });
+  const onSubmit = ({ name, email, password }) => {
+    const user = { name, email, password, isLoggedIn: true };
+
+    localStorage.setItem("user", JSON.stringify(user));
+    localStorage.removeItem("visited");
+    setUser(user);
     reset();
   };
 
@@ -38,6 +38,23 @@ function login() {
         >
           <input type="hidden" name="remember" value="true"></input>
           <div className="rounded-md shadow-sm -space-y-px">
+            <section className="flex flex-col relative">
+              <label htmlFor="name" className="sr-only">
+                Name
+              </label>
+              <input
+                id="name"
+                name="name"
+                {...register("name", {
+                  required: true,
+                  pattern: /[A-Za-z0-9_]{3,15}/,
+                })}
+                type="text"
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-t-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
+                placeholder="name"
+              ></input>
+              {errors.name && <span>Name must have at least 3 characters</span>}
+            </section>
             <div>
               <label htmlFor="email-address" className="sr-only">
                 Email address

@@ -13,8 +13,7 @@ export const useCrud = (url) => {
   const fetchData = (method = "get") => {
     useEffect(() => {
       return () => {
-        //turn to false
-        isDismount.current = true;
+        isDismount.current = false;
       };
     }, []);
 
@@ -43,8 +42,7 @@ export const useCrud = (url) => {
     return state;
   };
 
-  const postData = (method, data, parameter = "") => {
-    console.log("POST DATA", data);
+  const postData = (method = "post", data, parameter = "") => {
     axios({ method, url: url + parameter, data });
   };
 

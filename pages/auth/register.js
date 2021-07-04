@@ -25,12 +25,6 @@ export default function register() {
     <div className="min-h-screen flex items-center justify-center py-7 px-4 sm:px-6 lg:px-4 bg-indigo-700">
       <div className="max-w-md w-full space-y-8 p-6 bg-white rounded-lg">
         <div>
-          {/* <Image
-            className="mx-auto h-36 w-auto"
-            src="./assets/undraw_Work_chat_re_qes4.svg"
-            alt="Workflow"
-            layout="fill"
-          ></Image> */}
           <h2 className="mt-6 text-center text-2xl font-extrabold text-gray-900">
             Start be connect with your friends
           </h2>

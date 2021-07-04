@@ -14,11 +14,7 @@ const Task = ({
 }) => {
   const [modal, setModal] = useState(false);
 
-  /* ---------------- */
-
   const { register, handleSubmit } = useForm();
-
-  /* ---------------- */
 
   const handleModal = (e) => {
     e.stopPropagation();
@@ -34,7 +30,7 @@ const Task = ({
         }`}
       >
         {task}
-        <div className="flex gap-2 opacity-0 group-hover:opacity-100">
+        <div className="flex gap-2 opacity-0 duration-500 group-hover:opacity-100">
           <GoPencil
             onClick={handleModal}
             title="Edit task"
@@ -43,7 +39,7 @@ const Task = ({
           <BsFillTrash2Fill
             onClick={(e) => handleDeleteTask(e, id)}
             title="Delete task"
-            className="cursor-pointer hover:text-red-700"
+            className="cursor-pointer hover:text-red-600"
           />
         </div>
       </li>

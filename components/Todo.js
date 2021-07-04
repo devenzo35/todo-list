@@ -52,8 +52,6 @@ const Todo = () => {
     setTasks((prev) => prev.filter((t) => t.id !== id));
   };
 
-  console.log(tasks);
-
   return (
     <div className="bg-white border rounded-lg w-3/6 h-min mx-auto p-3">
       <form onSubmit={handleSubmit(addTask)}>
@@ -74,15 +72,13 @@ const Todo = () => {
           tasks.map(({ id, task, done }) => {
             return (
               <Task
-                register={register}
-                handleDoneTask={handleDoneTask}
-                handleUpdateSubmit={handleUpdateSubmit}
-                handleDeleteTask={handleDeleteTask}
-                postData={postData}
                 key={id}
                 task={task}
                 id={id}
                 done={done}
+                handleDoneTask={handleDoneTask}
+                handleUpdateSubmit={handleUpdateSubmit}
+                handleDeleteTask={handleDeleteTask}
               />
             );
           })
