@@ -14,7 +14,13 @@ const Task = ({
 }) => {
   const [modal, setModal] = useState(false);
 
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: { task: `${task}` },
+  });
 
   const handleModal = (e) => {
     e.stopPropagation();
@@ -25,12 +31,12 @@ const Task = ({
     <>
       <li
         onClick={() => handleDoneTask(id)}
-        className={`border w-full flex justify-between items-center p-2 rounded-sm group cursor-pointer select-none ${
+        className={`border w-full flex justify-between items-center p-2 rounded-sm group cursor-pointer select-none duration-200 shadow-md hover:shadow-sm ${
           done && "line-through"
         }`}
       >
         {task}
-        <div className="flex gap-2 opacity-0 duration-500 group-hover:opacity-100">
+        <div className="flex gap-2 opacity-0 duration-200 group-hover:opacity-100">
           <GoPencil
             onClick={handleModal}
             title="Edit task"
@@ -44,24 +50,33 @@ const Task = ({
         </div>
       </li>
       {modal && (
-        <div className="bg-white flex justify-center items-center border rounded-sm w-2/6 h-24 absolute shadow-md p-6 py-7">
-          <form onSubmit={handleSubmit((data) => handleUpdateSubmit(data, id))}>
+        <div className="bg-white flex flex-col gap-1 text-center border rounded-sm w-2/6 h-24 absolute shadow-md p-6 py-7 bottom-40">
+          <form
+            onSubmit={handleSubmit((data) =>
+              handleUpdateSubmit(data, id, setModal)
+            )}
+          >
             <input
-              className="border w-11/12 h-full p-2"
+              className="border w-full h-full p-2"
               type="text"
               name="updateTask"
               placeholder="Update task"
               {...register("task", {
                 required: true,
+                maxLength: 40,
               })}
+              autoComplete="off"
             ></input>
           </form>
           <div
             onClick={handleModal}
-            className="bg-red-400 text-white grid place-items-center border w-1/12 h-full p-2 cursor-pointer hover:bg-red-600"
+            className="bg-white absolute -top-2 -right-2 grid place-items-center border w-6 h-6 p-1 cursor-pointer rounded-full hover:bg-red-600"
           >
-            <ImCancelCircle />
+            <ImCancelCircle className="w-full h-full" />
           </div>
+          {errors.task && (
+            <span>Por favor ingrese entre 1 a 40 caracteres</span>
+          )}
         </div>
       )}
     </>

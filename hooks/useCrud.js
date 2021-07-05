@@ -35,15 +35,19 @@ export const useCrud = (url) => {
           }
         })
         .catch(() => {
-          setstate({ ...state, error: "No se encontraron los resultados" });
+          setstate({ ...state, error: "No se encontraron resultados" });
         });
     }, [url, method]);
 
     return state;
   };
 
-  const postData = (method = "post", data, parameter = "") => {
-    axios({ method, url: url + parameter, data });
+  const postData = async (method = "post", data, parameter = "") => {
+    try {
+      await axios({ method, url: url + parameter, data });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return { fetchData, postData };

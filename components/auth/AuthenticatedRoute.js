@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { userContext } from "../../pages/_app";
 import Router from "next/router";
-
+import Loader from "../../components/Loader";
 const authenticatedRoute = (Component = null, options = {}) => {
   const AuthenticatedRoute = () => {
     const { user } = useContext(userContext);
@@ -20,7 +20,7 @@ const authenticatedRoute = (Component = null, options = {}) => {
     }, [user]);
 
     if (state.loading) {
-      return <div>loading...</div>;
+      return <Loader />;
     }
 
     return <Component />;

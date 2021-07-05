@@ -16,8 +16,6 @@ function MyApp({ Component, pageProps }) {
     setUser(storageUser);
   }, []);
 
-  console.log(user);
-
   return (
     <userContext.Provider value={{ user, setUser }}>
       <Component {...pageProps} />

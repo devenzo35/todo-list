@@ -1,15 +1,16 @@
+import { useState, useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { useForm } from "react-hook-form";
 import { useCrud } from "../hooks/useCrud";
 import Task from "./Task";
-import { useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
+import Loader from "../components/Loader";
 
 const Todo = () => {
   const { fetchData, postData } = useCrud("http://localhost:3001/tasks");
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit, reset } = useForm();
   const [tasks, setTasks] = useState([]);
 
-  const { loading, data } = fetchData();
+  const { loading, data, error } = fetchData();
 
   useEffect(() => {
     if (loading) {
@@ -23,6 +24,7 @@ const Todo = () => {
     const newTask = { ...data, id: uuidv4(), done: false };
     postData("post", newTask);
     setTasks((prev) => [...prev, newTask]);
+    reset();
   };
 
   const handleDoneTask = (id) => {
@@ -38,11 +40,12 @@ const Todo = () => {
     );
   };
 
-  const handleUpdateSubmit = (data, id) => {
+  const handleUpdateSubmit = (data, id, setModal) => {
     if (!data.task.length) return;
     setTasks((prev) =>
       prev.map((t) => (t.id === id ? { ...t, task: data.task } : t))
     );
+    setModal((prev) => !prev);
     postData("put", data, "/" + id);
   };
 
@@ -53,7 +56,7 @@ const Todo = () => {
   };
 
   return (
-    <div className="bg-white border rounded-lg w-3/6 h-min mx-auto p-3">
+    <div className="bg-white shadow-lg border rounded-lg w-3/6 h-min mx-auto p-3 mt-5">
       <form onSubmit={handleSubmit(addTask)}>
         <input
           className="border-b w-full p-1 mb-4"
@@ -63,11 +66,13 @@ const Todo = () => {
           {...register("task", {
             required: true,
           })}
+          autoComplete="off"
         ></input>
       </form>
+      {error && <p>{error}</p>}
       <ul className="flex flex-col justify-around gap-2 items-center h-full">
         {loading ? (
-          <h1>loading...</h1>
+          <Loader />
         ) : tasks.length ? (
           tasks.map(({ id, task, done }) => {
             return (
@@ -83,7 +88,7 @@ const Todo = () => {
             );
           })
         ) : (
-          <p>There is no tasks yet :(</p>
+          <p>No hay tareas aún</p>
         )}
       </ul>
     </div>

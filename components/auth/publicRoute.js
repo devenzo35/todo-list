@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { userContext } from "../../pages/_app";
 import Router from "next/router";
+import Loader from "../../components/Loader";
 
 const publicRoute = (Component = null, options = {}) => {
   const PublicRoute = () => {
@@ -20,7 +21,7 @@ const publicRoute = (Component = null, options = {}) => {
     }, [user]);
 
     if (state.loading) {
-      return <div>loading...</div>;
+      return <Loader />;
     }
 
     return <Component />;
